@@ -95,6 +95,7 @@ public class AVNotificationHelper {
         NotificationManager notificationManager = notificationManager();
         createCallNotificationChannel(notificationManager, json);
         notificationManager.notify(notificationID,notification);
+
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isInteractive(); // check if screen is on
         if (!isScreenOn) {

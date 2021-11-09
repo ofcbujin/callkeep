@@ -16,6 +16,11 @@ public class AVLockscreenCalling extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         showWhenLockedAndTurnScreenOn();
+        getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                        | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        );
         super.onCreate(savedInstanceState);
 
         binding = ActivityLockscreenBinding.inflate(getLayoutInflater());
