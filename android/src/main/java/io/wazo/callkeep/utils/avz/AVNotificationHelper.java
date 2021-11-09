@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 
 import androidx.core.app.NotificationCompat;
 
@@ -67,7 +68,7 @@ public class AVNotificationHelper {
         PendingIntent callDismissIntent = PendingIntent.getBroadcast(context,0, dissmissIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent fullScreenIntent = new Intent(context, AVLockscreenCalling.class);
-        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, 0);
+        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT;
 
 
         Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.nosound);
@@ -79,12 +80,11 @@ public class AVNotificationHelper {
                 .setOngoing(true)
                 .setTimeoutAfter(json.getInt("duration"))
                 .setOnlyAlertOnce(true)
-                .setFullScreenIntent(getPendingIntent(notificationID, "fullScreenIntent", json) , true)
+                .setFullScreenIntent(fullScreenPendingIntent , true)
+//                .setFullScreenIntent(getPendingIntent(notificationID, "fullScreenIntent", json) , true)
                 .setContentIntent(getPendingIntent(notificationID, "contentTap", json))
                 .setSmallIcon(R.drawable.ic_call_black_24)
                 .setPriority(Notification.PRIORITY_MAX)
-                .setFullScreenIntent(fullScreenPendingIntent, true)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentTitle(json.getString("notificationTitle"))
                 .setSound(sounduri)
                 .setContentText(json.getString("notificationBody"))
@@ -95,6 +95,12 @@ public class AVNotificationHelper {
         NotificationManager notificationManager = notificationManager();
         createCallNotificationChannel(notificationManager, json);
         notificationManager.notify(notificationID,notification);
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = pm.isInteractive(); // check if screen is on
+        if (!isScreenOn) {
+            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
+            wl.acquire(3000); //set your time in milliseconds
+        }
     }
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
