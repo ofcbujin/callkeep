@@ -28,22 +28,23 @@ public class AVNotificationHelper {
         this.context = context;
     }
     
-    public JSONObject configJson(){
+    public JSONObject configJson(String caller_id, String number, String caller_name){
 
         JSONObject config = new JSONObject();
         try {
+            config.put("callerId", caller_id);
             config.put("ringtuneSound", true);
             config.put("ringtune", "ringtune");
             config.put("duration", 20000);
             config.put("vibration", true);
             config.put("channel_name", "call1asd");
             config.put("notificationId", 1121);
-            config.put("notificationTitle", "Incomming Call");
-            config.put("notificationBody", "Some One is Calling...");
-            config.put("answerActionTitle", "Answer");
-            config.put("declineActionTitle", "Decline");
-            config.put("missedCallTitle", "Ajith A B");
-            config.put("missedCallBody", "You have a Missed Call From Ajith A B");
+            config.put("notificationTitle", "Llamada entrante");
+            config.put("notificationBody", caller_name + " llamando");
+            config.put("answerActionTitle", "Contestar");
+            config.put("declineActionTitle", "Colgar");
+            config.put("missedCallTitle", caller_name);
+            config.put("missedCallBody", "Tiene una llamada perdida de" + caller_name);
 
 
         } catch (JSONException e) {
