@@ -17,7 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.wazo.callkeep.R;
-import io.wazo.callkeep.avz.AVLockscreenCall;
+import io.wazo.callkeep.avz.AVLockscreenCalling;
 import io.wazo.callkeep.avz.AVVoipReceiver;
 
 public class AVNotificationHelper {
@@ -66,7 +66,7 @@ public class AVNotificationHelper {
         dissmissIntent.putExtra("missedCallBody", json.getString("missedCallBody"));
         PendingIntent callDismissIntent = PendingIntent.getBroadcast(context,0, dissmissIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent fullScreenIntent = new Intent(context, AVLockscreenCall.class);
+        Intent fullScreenIntent = new Intent(context, AVLockscreenCalling.class);
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, 0);
 
 
