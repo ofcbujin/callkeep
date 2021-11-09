@@ -3,7 +3,13 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <application>
         <receiver android:name=".avz.AVVoipReceiver" />
+        <activity
+            android:name=".utils.avz.AVLockscreenCall"
+            android:launchMode="singleTop"
+            android:showOnLockScreen="true" />
     </application>
 </manifest>

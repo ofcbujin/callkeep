@@ -65,6 +65,10 @@ public class AVNotificationHelper {
         dissmissIntent.putExtra("missedCallBody", json.getString("missedCallBody"));
         PendingIntent callDismissIntent = PendingIntent.getBroadcast(context,0, dissmissIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent fullScreenIntent = new Intent(context, AVLockscreenCall.class);
+        PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, 0);
+
+
         Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.nosound);
 
         Notification notification = new NotificationCompat.Builder(context,callChannel)
@@ -78,6 +82,8 @@ public class AVNotificationHelper {
                 .setContentIntent(getPendingIntent(notificationID, "contentTap", json))
                 .setSmallIcon(R.drawable.ic_call_black_24)
                 .setPriority(Notification.PRIORITY_MAX)
+                .setFullScreenIntent(fullScreenPendingIntent, true)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentTitle(json.getString("notificationTitle"))
                 .setSound(sounduri)
                 .setContentText(json.getString("notificationBody"))
