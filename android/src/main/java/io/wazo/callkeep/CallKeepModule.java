@@ -255,9 +255,9 @@ public class CallKeepModule {
 
     
     public void displayIncomingCall(String uuid, String number, String callerName) {
-        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
-            return;
-        }
+//        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
+//            return;
+//        }
 
         Log.d(TAG, "displayIncomingCall number: " + number + ", callerName: " + callerName);
 
