@@ -20,6 +20,8 @@ package io.wazo.callkeep;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -63,8 +65,12 @@ import io.wazo.callkeep.utils.Callback;
 import io.wazo.callkeep.utils.ConstraintsMap;
 import io.wazo.callkeep.utils.ConstraintsArray;
 import io.wazo.callkeep.utils.PermissionUtils;
+import io.wazo.callkeep.utils.avz.AVNotificationHelper;
 
 import static io.wazo.callkeep.Constants.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 // @see https://github.com/kbagchiGWC/voice-quickstart-android/blob/9a2aff7fbe0d0a5ae9457b48e9ad408740dfb968/exampleConnectionService/src/main/java/com/twilio/voice/examples/connectionservice/VoiceConnectionServiceActivity.java
 public class CallKeepModule {
@@ -255,9 +261,15 @@ public class CallKeepModule {
 
     
     public void displayIncomingCall(String uuid, String number, String callerName) {
-//        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
-//            return;
-//        }
+        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
+            AVNotificationHelper helper = new AVNotificationHelper((Application) getAppContext());
+            try {
+                helper.sendNotification(helper.configJson());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
 
         Log.d(TAG, "displayIncomingCall number: " + number + ", callerName: " + callerName);
 
@@ -271,7 +283,9 @@ public class CallKeepModule {
         telecomManager.addNewIncomingCall(handle, extras);
     }
 
-    
+
+
+
     public void answerIncomingCall(String uuid) {
         if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             return;
