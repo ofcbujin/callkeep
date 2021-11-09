@@ -1,4 +1,4 @@
-package io.wazo.callkeep.utils.avz
+package io.wazo.callkeep.avz
 
 import android.os.Build
 import android.os.Bundle

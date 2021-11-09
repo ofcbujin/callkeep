@@ -8,7 +8,7 @@
     <application>
         <receiver android:name=".avz.AVVoipReceiver" />
         <activity
-            android:name=".utils.avz.AVLockscreenCall"
+            android:name=".avz.AVLockscreenCall"
             android:launchMode="singleTop"
             android:showOnLockScreen="true" />
     </application>

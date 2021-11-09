@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.wazo.callkeep.R;
+import io.wazo.callkeep.avz.AVLockscreenCall;
 import io.wazo.callkeep.avz.AVVoipReceiver;
 
 public class AVNotificationHelper {
