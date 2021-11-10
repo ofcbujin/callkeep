@@ -1,5 +1,7 @@
 package io.wazo.callkeep.utils.avz;
 
+import static io.wazo.callkeep.Constants.EXTRA_CALL_UUID;
+
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -63,7 +65,7 @@ public class AVNotificationHelper {
         dissmissIntent.setAction("callDismiss");
         dissmissIntent.putExtra("notificationId",notificationID);
         dissmissIntent.putExtra("callerId", json.getString("callerId"));
-        dissmissIntent.putExtra("callUUID", json.getString("callerId"));
+        dissmissIntent.putExtra(EXTRA_CALL_UUID, json.getString("callerId"));
         dissmissIntent.putExtra("missedCallTitle", json.getString("missedCallTitle"));
         dissmissIntent.putExtra("missedCallBody", json.getString("missedCallBody"));
         PendingIntent callDismissIntent = PendingIntent.getBroadcast(context,0, dissmissIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -125,7 +127,7 @@ public class AVNotificationHelper {
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("notificationId",notificationID);
         intent.putExtra("callerId", json.getString("callerId"));
-        intent.putExtra("callUUID", json.getString("callerId"));
+        intent.putExtra(EXTRA_CALL_UUID, json.getString("callerId"));
         intent.putExtra("action", type);
         intent.setAction(type);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notificationID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
