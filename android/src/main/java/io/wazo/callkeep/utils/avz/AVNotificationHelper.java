@@ -7,6 +7,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
@@ -81,7 +82,7 @@ public class AVNotificationHelper {
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.ringtune);
+        Uri sounduri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://" + context.getPackageName() + "/raw/ringtune");
 
         Notification notification = new NotificationCompat.Builder(context,callChannel)
                 .setAutoCancel(true)
@@ -104,6 +105,7 @@ public class AVNotificationHelper {
 
         NotificationManager notificationManager = notificationManager();
         createCallNotificationChannel(notificationManager, json);
+
         notificationManager.notify(notificationID,notification);
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -116,7 +118,7 @@ public class AVNotificationHelper {
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.ringtune);
+            Uri sounduri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://" + context.getPackageName() + "/raw/ringtune");
             NotificationChannel channel = new NotificationChannel(callChannel, json.getString("channel_name"), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Call Notifications");
             channel.setSound(sounduri ,
