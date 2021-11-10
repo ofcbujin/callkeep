@@ -116,7 +116,7 @@ public class AVNotificationHelper {
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.nosound);
+            Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.ringtune);
             NotificationChannel channel = new NotificationChannel(callChannel, json.getString("channel_name"), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Call Notifications");
             channel.setSound(sounduri ,
