@@ -70,11 +70,20 @@ public class AVNotificationHelper {
         dissmissIntent.putExtra("missedCallBody", json.getString("missedCallBody"));
         PendingIntent callDismissIntent = PendingIntent.getBroadcast(context,0, dissmissIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent answerIntent = new Intent(context, AVVoipReceiver.class);
+        answerIntent.setAction("callAnswer");
+        answerIntent.putExtra("notificationId",notificationID);
+        answerIntent.putExtra("callerId", json.getString("callerId"));
+        answerIntent.putExtra(EXTRA_CALL_UUID, json.getString("callerId"));
+        answerIntent.putExtra("answerCallTitle", json.getString("answerCallTitle"));
+        answerIntent.putExtra("answerCallBody", json.getString("answerCallBody"));
+        PendingIntent callAnswerIntent = PendingIntent.getBroadcast(context,0, answerIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
+
         Intent fullScreenIntent = new Intent(context, AVLockscreenCalling.class);
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.nosound);
+        Uri sounduri = Uri.parse("android.resource://" + context.getPackageName() + "/"+ R.raw.ringtune);
 
         Notification notification = new NotificationCompat.Builder(context,callChannel)
                 .setAutoCancel(true)
@@ -91,7 +100,7 @@ public class AVNotificationHelper {
                 .setContentTitle(json.getString("notificationTitle"))
                 .setSound(sounduri)
                 .setContentText(json.getString("notificationBody"))
-                .addAction(0, json.getString("answerActionTitle"), getPendingIntent(notificationID, "callAnswer",json))
+                .addAction(0, json.getString("answerActionTitle"), callAnswerIntent)
                 .addAction(0, json.getString("declineActionTitle"), callDismissIntent)
                 .build();
 
