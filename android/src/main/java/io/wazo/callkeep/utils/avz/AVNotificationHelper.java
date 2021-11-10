@@ -75,8 +75,6 @@ public class AVNotificationHelper {
         answerIntent.putExtra("notificationId",notificationID);
         answerIntent.putExtra("callerId", json.getString("callerId"));
         answerIntent.putExtra(EXTRA_CALL_UUID, json.getString("callerId"));
-        answerIntent.putExtra("answerCallTitle", json.getString("answerCallTitle"));
-        answerIntent.putExtra("answerCallBody", json.getString("answerCallBody"));
         PendingIntent callAnswerIntent = PendingIntent.getBroadcast(context,0, answerIntent ,PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent fullScreenIntent = new Intent(context, AVLockscreenCalling.class);
