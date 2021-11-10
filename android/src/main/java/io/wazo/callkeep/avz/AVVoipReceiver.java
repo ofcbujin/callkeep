@@ -51,6 +51,8 @@ public class AVVoipReceiver extends BroadcastReceiver {
                 // rnVoipNotificationHelper.showMissCallNotification(intent.getStringExtra("missedCallTitle"), intent.getStringExtra("missedCallBody"), intent.getStringExtra("callerId"));
                 break;
             case "callAnswer":
+                AVRingPlayer.getInstance(context).stopMusic();
+                avNotificationHelper.clearNotification(notificationId);
                 final Handler handler1 = new Handler();
                 Bundle extras1 = intent.getExtras();
                 HashMap<String, String> extrasMap1 = this.bundleToMap(extras1);
