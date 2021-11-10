@@ -1,5 +1,6 @@
 package io.wazo.callkeep.avz;
 
+import static io.wazo.callkeep.Constants.ACTION_ANSWER_CALL;
 import static io.wazo.callkeep.Constants.ACTION_END_CALL;
 
 import android.app.Application;
@@ -59,7 +60,7 @@ public class AVVoipReceiver extends BroadcastReceiver {
                 handler1.post(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(ACTION_END_CALL);
+                        Intent intent = new Intent(ACTION_ANSWER_CALL);
                         if (extrasMap1 != null) {
                             Bundle extras = new Bundle();
                             extras.putSerializable("attributeMap", extrasMap1);
