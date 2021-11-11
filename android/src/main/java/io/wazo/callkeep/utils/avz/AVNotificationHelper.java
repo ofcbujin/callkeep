@@ -11,6 +11,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
@@ -43,7 +44,7 @@ public class AVNotificationHelper {
             config.put("duration", 20000);
             config.put("vibration", true);
             config.put("channel_name", "call1asd");
-            config.put("notificationId", 1121);
+            config.put("notificationId", 18347);
             config.put("notificationTitle", "Llamada entrante");
             config.put("notificationBody", caller_name + " llamando");
             config.put("answerActionTitle", "Contestar");
@@ -82,7 +83,7 @@ public class AVNotificationHelper {
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, 0, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        Uri sounduri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://" + context.getPackageName() + "/" + R.raw.ringtune);
+        Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
         Notification notification = new NotificationCompat.Builder(context,callChannel)
                 .setAutoCancel(true)
@@ -118,7 +119,7 @@ public class AVNotificationHelper {
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Uri sounduri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://" + context.getPackageName() + "/" + R.raw.ringtune);
+            Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             NotificationChannel channel = new NotificationChannel(callChannel, json.getString("channel_name"), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Call Notifications");
             channel.setSound(sounduri ,
