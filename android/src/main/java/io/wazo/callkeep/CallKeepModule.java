@@ -265,6 +265,8 @@ public class CallKeepModule {
 //        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             AVNotificationHelper helper = new AVNotificationHelper((Application) getAppContext());
             try {
+                helper.powerOnScreen();
+
                 helper.sendNotification(helper.configJson(uuid, number, callerName));
             } catch (JSONException e) {
                 e.printStackTrace();

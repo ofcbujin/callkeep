@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.widget.Toast;
+import android.os.Handler;
 
 import androidx.core.app.NotificationCompat;
 
@@ -61,13 +62,17 @@ public class AVNotificationHelper {
         return config;
     }
 
-    public void sendNotification(JSONObject json) throws JSONException {
+    public void powerOnScreen(){
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isInteractive(); // check if screen is on
         if (!isScreenOn) {
             PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
             wl.acquire(1); //set your time in milliseconds
         }
+    }
+
+    public void sendNotification(JSONObject json) throws JSONException {
+        powerOnScreen();
 
         int notificationID = json.getInt("notificationId");
         Toast.makeText(context, "sendNotification", Toast.LENGTH_SHORT).show();
@@ -115,7 +120,7 @@ public class AVNotificationHelper {
         NotificationManager notificationManager = notificationManager();
         createCallNotificationChannel(notificationManager, json);
 
-        notificationManager.notify(notificationID,notification);
+        new Handler().postDelayed(() -> notificationManager.notify(notificationID,notification),500);
 
 
     }
