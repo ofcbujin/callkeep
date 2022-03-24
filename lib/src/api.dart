@@ -308,7 +308,7 @@ class FlutterCallkeep extends EventManager {
 
     final showAccountAlert = await _checkPhoneAccountPermission(
         options['additionalPermissions'] as List<String>);
-    final shouldOpenAccounts = await _alert(options, showAccountAlert);
+    // final shouldOpenAccounts = await _alert(options, showAccountAlert);
 
     // if (shouldOpenAccounts) {
     //   await _openPhoneAccounts();
