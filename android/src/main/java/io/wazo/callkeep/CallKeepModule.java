@@ -262,7 +262,7 @@ public class CallKeepModule {
 
 
     public void displayIncomingCall(String uuid, String number, String callerName) {
-        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
+//        if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             AVNotificationHelper helper = new AVNotificationHelper((Application) getAppContext());
             try {
                 helper.sendNotification(helper.configJson(uuid, number, callerName));
@@ -270,18 +270,18 @@ public class CallKeepModule {
                 e.printStackTrace();
             }
             return;
-        }
-
-        Log.d(TAG, "displayIncomingCall number: " + number + ", callerName: " + callerName);
-
-        Bundle extras = new Bundle();
-        Uri uri = Uri.fromParts(PhoneAccount.SCHEME_TEL, number, null);
-
-        extras.putParcelable(TelecomManager.EXTRA_INCOMING_CALL_ADDRESS, uri);
-        extras.putString(EXTRA_CALLER_NAME, callerName);
-        extras.putString(EXTRA_CALL_UUID, uuid);
-
-        telecomManager.addNewIncomingCall(handle, extras);
+//        }
+//
+//        Log.d(TAG, "displayIncomingCall number: " + number + ", callerName: " + callerName);
+//
+//        Bundle extras = new Bundle();
+//        Uri uri = Uri.fromParts(PhoneAccount.SCHEME_TEL, number, null);
+//
+//        extras.putParcelable(TelecomManager.EXTRA_INCOMING_CALL_ADDRESS, uri);
+//        extras.putString(EXTRA_CALLER_NAME, callerName);
+//        extras.putString(EXTRA_CALL_UUID, uuid);
+//
+//        telecomManager.addNewIncomingCall(handle, extras);
     }
 
 
