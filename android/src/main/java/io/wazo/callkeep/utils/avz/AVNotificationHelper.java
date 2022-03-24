@@ -42,7 +42,7 @@ public class AVNotificationHelper {
             config.put("callerId", caller_id);
             config.put("ringtuneSound", true);
             config.put("ringtune", "ringtune");
-            config.put("duration", 20000);
+            config.put("duration", 60000);
             config.put("vibration", true);
             config.put("channel_name", "call1asd");
             config.put("notificationId", 18347);
@@ -61,7 +61,27 @@ public class AVNotificationHelper {
         return config;
     }
 
+    private void showWhenLockedAndTurnScreenOn() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+        } else {
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+            );
+        }
+    }
+
     public void sendNotification(JSONObject json) throws JSONException {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = pm.isInteractive(); // check if screen is on
+        if (!isScreenOn) {
+            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
+            wl.acquire(1); //set your time in milliseconds
+        }
+
         int notificationID = json.getInt("notificationId");
         Toast.makeText(context, "sendNotification", Toast.LENGTH_SHORT).show();
         Intent dissmissIntent = new Intent(context, AVVoipReceiver.class);
@@ -110,12 +130,7 @@ public class AVNotificationHelper {
 
         notificationManager.notify(notificationID,notification);
 
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        boolean isScreenOn = pm.isInteractive(); // check if screen is on
-        if (!isScreenOn) {
-            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
-            wl.acquire(3000); //set your time in milliseconds
-        }
+
     }
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
