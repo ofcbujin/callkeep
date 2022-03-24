@@ -61,19 +61,6 @@ public class AVNotificationHelper {
         return config;
     }
 
-    private void showWhenLockedAndTurnScreenOn() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true);
-            setTurnScreenOn(true);
-        } else {
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                            | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-            );
-        }
-    }
-
     public void sendNotification(JSONObject json) throws JSONException {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isInteractive(); // check if screen is on
