@@ -111,7 +111,7 @@ public class AVNotificationHelper {
                 .setSmallIcon(R.drawable.ic_call_black_24)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_CALL)
-                .setFullScreenIntent(true)
+                .setFullScreenIntent(fullScreenPendingIntent,true)
 //                .setFullScreenIntent(getPendingIntent(notificationID, "fullScreenIntent", json) , true)
                 .setContentIntent(getPendingIntent(notificationID, "contentTap", json))
                 .setContentTitle(json.getString("notificationTitle"))
@@ -138,7 +138,7 @@ public class AVNotificationHelper {
             channel.setSound(sounduri ,
                     new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                             .setUsage(AudioAttributes.USAGE_UNKNOWN).build());
-            channel.setVibrationPattern(new long[]{0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000});
+//            channel.setVibrationPattern(new long[]{0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000, 0, 1000, 500, 1000});
             channel.enableVibration(json.getBoolean("vibration"));
             manager.createNotificationChannel(channel);
         }
