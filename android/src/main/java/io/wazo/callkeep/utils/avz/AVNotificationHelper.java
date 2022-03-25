@@ -18,6 +18,8 @@ import android.os.PowerManager;
 import android.widget.Toast;
 import android.os.Handler;
 import android.view.WindowManager;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 
 import androidx.core.app.NotificationCompat;
@@ -71,7 +73,7 @@ public class AVNotificationHelper {
             PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
             wl.acquire(1); //set your time in milliseconds
         }
-        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        ((AppCompatActivity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     public void sendNotification(JSONObject json) throws JSONException {
@@ -171,14 +173,14 @@ public class AVNotificationHelper {
     public void clearNotification(int notificationID) {
         NotificationManager notificationManager = notificationManager();
         notificationManager.cancel(notificationID);
-        context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        ((AppCompatActivity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
     public void clearAllNorifications(){
         NotificationManager manager = notificationManager();
         manager.cancelAll();
-        context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        ((AppCompatActivity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
