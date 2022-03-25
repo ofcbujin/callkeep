@@ -111,7 +111,7 @@ public class AVNotificationHelper {
                 .setSmallIcon(R.drawable.ic_call_black_24)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_CALL)
-                .setFullScreenIntent(fullScreenPendingIntent , true)
+                .setFullScreenIntent(true)
 //                .setFullScreenIntent(getPendingIntent(notificationID, "fullScreenIntent", json) , true)
                 .setContentIntent(getPendingIntent(notificationID, "contentTap", json))
                 .setContentTitle(json.getString("notificationTitle"))
