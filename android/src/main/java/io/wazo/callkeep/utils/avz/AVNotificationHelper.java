@@ -73,7 +73,6 @@ public class AVNotificationHelper {
             PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "myApp:notificationLock");
             wl.acquire(1); //set your time in milliseconds
         }
-        ((AppCompatActivity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     public void sendNotification(JSONObject json) throws JSONException {
@@ -173,14 +172,12 @@ public class AVNotificationHelper {
     public void clearNotification(int notificationID) {
         NotificationManager notificationManager = notificationManager();
         notificationManager.cancel(notificationID);
-        ((AppCompatActivity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
     public void clearAllNorifications(){
         NotificationManager manager = notificationManager();
         manager.cancelAll();
-        ((AppCompatActivity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
 
