@@ -79,7 +79,7 @@ public class AVNotificationHelper {
         powerOnScreen();
 
         int notificationID = json.getInt("notificationId");
-        Toast.makeText(context, "sendNotification", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "sendNotification", Toast.LENGTH_SHORT).show();
         Intent dissmissIntent = new Intent(context, AVVoipReceiver.class);
         dissmissIntent.setAction("callDismiss");
         dissmissIntent.putExtra("notificationId",notificationID);
@@ -131,7 +131,7 @@ public class AVNotificationHelper {
 
     public void createCallNotificationChannel(NotificationManager manager, JSONObject json) throws JSONException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Toast.makeText(context, "createCall", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "createCall", Toast.LENGTH_SHORT).show();
             Uri sounduri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
             NotificationChannel channel = new NotificationChannel(callChannel, json.getString("channel_name"), NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Call Notifications");
