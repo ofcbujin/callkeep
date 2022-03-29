@@ -341,6 +341,13 @@ public class CallKeepModule {
 
     public void endAllCalls() {
         Log.d(TAG, "endAllCalls called");
+        AVNotificationHelper helper = new AVNotificationHelper((Application) getAppContext());
+        try {
+            helper.clearAllNorifications();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return;
         if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             return;
         }
