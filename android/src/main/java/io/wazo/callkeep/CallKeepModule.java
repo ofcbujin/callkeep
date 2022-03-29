@@ -347,7 +347,6 @@ public class CallKeepModule {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return;
         if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             return;
         }
